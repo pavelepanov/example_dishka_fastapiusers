@@ -3,3 +3,4 @@
 .ruff_cache
 .venv
 .zshrc
+__pycache__
