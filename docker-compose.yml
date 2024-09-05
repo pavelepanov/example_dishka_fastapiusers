@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  fastapi:
+    container_name: fastapi
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8000
+    networks:
+      - custom
+    depends_on:
+      - db
+    environment:
+      DATABASE_URI: $DATABASE_URI
+      SECRET_JWT: $SECRET_JWT
+      SECRET_MANAGER: $SECRET_MANAGER
+    command:
+      - "sh"
+      - "-c"
+      - "alembic upgrade head && gunicorn -c conf/gunicorn.conf.py 'src.example_dishka_fastapiusers.entrypoint.web_api:create_app()'"
+  db:
+    container_name: postgres
+    image: postgres:13.0-alpine
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+    networks:
+      - custom
+    ports:
+      - "2344:${DB_PORT}"
+
+
+networks:
+  custom:
+    driver: bridge
