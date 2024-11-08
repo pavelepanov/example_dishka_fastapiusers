@@ -21,7 +21,7 @@ SECRET_MANAGER=fdgkgi!i45$@tiGFGBXdsagfdg3$@
 ````
 2. Build docker in /example_dishka_fastapiusers/
 ``docker compose up --build``
-3. Check docs in ``loclahost:8000/docs``
+3. Check docs in ``localhost:8000/docs``
 
 Dishka docs: https://dishka.readthedocs.io/en/stable/
 \
